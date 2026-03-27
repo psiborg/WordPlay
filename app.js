@@ -1,5 +1,5 @@
 /* ========================================================
-   WORDPLAY — Scrabble & Crossplay Helper  |  app.js
+   WordPlay - Scrabble & Crossplay Helper  |  app.js
    ======================================================== */
 
 'use strict';

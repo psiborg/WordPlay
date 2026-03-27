@@ -1,8 +1,8 @@
 {
-  "name": "WORDPLAY — Scrabble & Crossplay Helper",
-  "short_name": "WORDPLAY",
+  "name": "WordPlay - Scrabble & Crossplay Helper",
+  "short_name": "WordPlay",
   "description": "Find words by available letters, patterns, and Scrabble scores",
-  "start_url": "/",
+  "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#fdf6e3",
   "theme_color": "#d4500a",
