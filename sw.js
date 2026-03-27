@@ -22,7 +22,7 @@
    assets never serve after an update.
    ============================================================ */
 
-const CACHE_VERSION  = 'wordplay-v1.2';
+const CACHE_VERSION  = 'wordplay-v1.3';
 const STATIC_CACHE   = `${CACHE_VERSION}-static`;
 const DYNAMIC_CACHE  = `${CACHE_VERSION}-dynamic`;
 
