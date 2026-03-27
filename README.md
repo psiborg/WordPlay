@@ -1,2 +1,2 @@
 # WordPlay
-Scrabble / Crossplay Helper
+Scrabble & Crossplay Helper
