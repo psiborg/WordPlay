@@ -2,7 +2,7 @@
 
 A fast, fully offline-capable Progressive Web App for finding valid words from a set of available letters, with Scrabble and NYT Crossplay scoring, crossword pattern matching, and 11 built-in themes.
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![License: Apache 2.0](https://img.shields.io/badge/License-Apache%202.0-yellow.svg)](https://opensource.org/license/apache-2.0)
 
 ---
 
