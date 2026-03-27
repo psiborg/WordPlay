@@ -4,7 +4,7 @@ build_dawg.py
 =============
 Builds a minimal Directed Acyclic Word Graph (DAWG) from a newline-separated
 word list and serializes it to a compact JSON format consumable by the
-WORDPLAY browser app.
+WordPlay browser app.
 
 Usage:
     python3 build_dawg.py [input_words.txt] [output_dawg.json]
