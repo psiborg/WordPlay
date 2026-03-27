@@ -22,7 +22,7 @@
    assets never serve after an update.
    ============================================================ */
 
-const CACHE_VERSION  = 'wordplay-v1.3';
+const CACHE_VERSION  = 'wordplay-v1.4';
 const STATIC_CACHE   = `${CACHE_VERSION}-static`;
 const DYNAMIC_CACHE  = `${CACHE_VERSION}-dynamic`;
 
@@ -30,7 +30,7 @@ const DYNAMIC_CACHE  = `${CACHE_VERSION}-dynamic`;
    Every asset the app needs to function fully offline.        */
 const PRECACHE_URLS = [
   /* App shell */
-  '/',
+  // '/',
   '/index.html',
   '/app.css',
   '/app.js',
