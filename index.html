@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#1a1208" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#fdf6e3" media="(prefers-color-scheme: light)">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="description" content="Scrabble & Crossplay word helper — find words by letters, patterns, and score them.">
+  <title>WORDPLAY — Scrabble &amp; Crossplay Helper</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="fonts.css">
+  <link rel="stylesheet" href="app.css">
+</head>
+<body>
+
+<div class="app-shell">
+
+  <!-- -- HEADER ----------------------------------------- -->
+  <header>
+    <a class="logo" href="#">
+      <div class="logo-tiles">
+        <div class="logo-tile">W</div>
+        <div class="logo-tile">O</div>
+        <div class="logo-tile">R</div>
+        <div class="logo-tile">D</div>
+      </div>
+      <span class="logo-text">WORDPLAY</span>
+      <span class="logo-sub">Scrabble &amp; Crossplay Helper</span>
+    </a>
+    <div class="header-actions">
+      <button class="btn-icon btn-menu" id="menuBtn" title="Menu" aria-label="Open menu" aria-haspopup="true" aria-expanded="false">
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+          <rect x="2" y="4"  width="14" height="2" rx="1" fill="currentColor"/>
+          <rect x="2" y="8"  width="14" height="2" rx="1" fill="currentColor"/>
+          <rect x="2" y="12" width="14" height="2" rx="1" fill="currentColor"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- -- DROPDOWN MENU ------------------------------------ -->
+    <div class="menu-dropdown" id="menuDropdown" role="menu" aria-hidden="true">
+      <!-- Scoring mode toggle -->
+      <button class="menu-item" id="menuScoringBtn" role="menuitem">
+        <span class="menu-item-icon">🎯</span>
+        <span class="menu-item-body">
+          <span class="menu-item-label">Scoring Mode</span>
+          <span class="menu-item-value" id="menuScoringValue">Scrabble</span>
+        </span>
+        <span class="menu-item-arrow">›</span>
+      </button>
+
+      <!-- Theme picker -->
+      <button class="menu-item" id="menuThemeBtn" role="menuitem">
+        <span class="menu-item-icon">🎨</span>
+        <span class="menu-item-body">
+          <span class="menu-item-label">Theme</span>
+          <span class="menu-item-value" id="menuThemeValue">Traditional</span>
+        </span>
+        <span class="menu-item-arrow">›</span>
+      </button>
+
+      <div class="menu-divider"></div>
+
+      <!-- About -->
+      <button class="menu-item" id="menuAboutBtn" role="menuitem">
+        <span class="menu-item-icon">ℹ️</span>
+        <span class="menu-item-body">
+          <span class="menu-item-label">About WORDPLAY</span>
+        </span>
+        <span class="menu-item-arrow">›</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- -- MAIN ------------------------------------------- -->
+  <main>
+
+    <!-- Search Panel -->
+    <section class="search-panel" aria-label="Word search filters">
+      <div class="panel-title">Find Words</div>
+
+      <div class="fields-grid">
+
+        <!-- Available Letters -->
+        <div class="field letters-field">
+          <label for="lettersInput">
+            Available Letters
+            <small style="text-transform:none;font-weight:400;font-style:italic;">(use ? for wildcard)</small>
+          </label>
+          <div style="display:flex;gap:8px;flex-direction:column;">
+            <input type="text" id="lettersInput"
+              placeholder="e.g. AEINRST or ? for wildcard"
+              autocomplete="off" autocorrect="off" spellcheck="false" maxlength="20">
+            <div class="letters-display" id="lettersDisplay" aria-label="Letter tiles"></div>
+          </div>
+        </div>
+
+        <!-- Starts With -->
+        <div class="field">
+          <label for="startsWithInput">Starts With</label>
+          <input type="text" id="startsWithInput" placeholder="e.g. PRE"
+            autocomplete="off" autocorrect="off" spellcheck="false" maxlength="15">
+        </div>
+
+        <!-- Contains -->
+        <div class="field">
+          <label for="containsInput">Contains</label>
+          <input type="text" id="containsInput" placeholder="e.g. ING"
+            autocomplete="off" autocorrect="off" spellcheck="false" maxlength="15">
+        </div>
+
+        <!-- Ends With -->
+        <div class="field">
+          <label for="endsWithInput">Ends With</label>
+          <input type="text" id="endsWithInput" placeholder="e.g. TION"
+            autocomplete="off" autocorrect="off" spellcheck="false" maxlength="15">
+        </div>
+
+      </div>
+
+      <div class="btn-row">
+        <button class="btn-primary" id="searchBtn" disabled>
+          <span>🔍</span> Find Words
+        </button>
+        <button class="btn-secondary" id="clearBtn">Clear</button>
+        <span class="dict-status loading" id="dictStatus">⏳ Loading dictionary…</span>
+        <div class="result-count" id="resultCount"></div>
+      </div>
+    </section>
+
+    <!-- Filter Bar (hidden until results appear) -->
+    <div class="filter-bar" id="filterBar" style="display:none;">
+      <span class="filter-label">Length:</span>
+      <div class="chip-group" id="lengthChips"></div>
+    </div>
+
+    <!-- Results Area -->
+    <div class="results-area" id="resultsArea">
+      <div class="empty-state">
+        <div class="icon">🎯</div>
+        <h3>Ready to play</h3>
+        <p>Enter your available letters (and optional pattern constraints) then hit <strong>Find Words</strong>.</p>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- -- FOOTER ----------------------------------------- -->
+  <footer>
+    <div id="footerLabel">Scrabble values · Click any word to copy</div>
+    <div class="scrabble-key" id="footerKey">
+      <!-- Populated by app.js based on active scoring mode -->
+    </div>
+  </footer>
+
+</div><!-- /.app-shell -->
+
+<!-- Theme Picker Dialog -->
+<div class="theme-dialog-backdrop" id="themeDialogBackdrop" role="dialog" aria-modal="true" aria-labelledby="themeDialogTitle">
+  <div class="theme-dialog">
+    <div class="theme-dialog-header">
+      <span class="theme-dialog-title" id="themeDialogTitle">Choose Theme</span>
+      <button class="theme-dialog-close" id="themeDialogClose" aria-label="Close theme picker">✕</button>
+    </div>
+    <div class="theme-dialog-body">
+      <div class="theme-grid" id="themeGrid">
+        <!-- Cards injected by app.js -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- About Dialog -->
+<div class="about-backdrop" id="aboutBackdrop" role="dialog" aria-modal="true" aria-labelledby="aboutTitle">
+  <div class="about-dialog">
+    <button class="theme-dialog-close" id="aboutClose" aria-label="Close about dialog">✕</button>
+
+    <div class="about-logo">
+      <div class="about-tiles">
+        <div class="about-tile">W</div>
+        <div class="about-tile">O</div>
+        <div class="about-tile">R</div>
+        <div class="about-tile">D</div>
+      </div>
+      <div class="about-app-name" id="aboutTitle">WORDPLAY</div>
+      <div class="about-tagline">Scrabble &amp; Crossword Helper</div>
+    </div>
+
+    <dl class="about-meta">
+      <div class="about-meta-row">
+        <dt>Version</dt>
+        <dd id="aboutVersion">1.0.0</dd>
+      </div>
+      <div class="about-meta-row">
+        <dt>Cache</dt>
+        <dd id="aboutCache">—</dd>
+      </div>
+      <div class="about-meta-row">
+        <dt>Dictionary</dt>
+        <dd>SOWPODS · 267,751 words</dd>
+      </div>
+    </dl>
+
+    <a class="about-github-btn" href="https://github.com/psiborg/WordPlay" target="_blank" rel="noopener noreferrer">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.868-.013-1.703-2.782.604-3.369-1.342-3.369-1.342-.454-1.154-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836a9.59 9.59 0 012.504.337c1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.202 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/>
+      </svg>
+      View on GitHub
+    </a>
+  </div>
+</div>
+
+<!-- Toast notification -->
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="app.js"></script>
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/sw.js')
+        .catch(err => console.warn('SW registration failed:', err));
+    });
+  }
+</script>
+</body>
+</html>
