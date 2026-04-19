@@ -9,9 +9,10 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="description" content="Scrabble & Crossplay word helper — find words by letters, patterns, and score them.">
   <title>WordPlay - Scrabble &amp; Crossplay Helper</title>
-  <link rel="manifest" href="manifest.json">
-  <link rel="stylesheet" href="fonts.css">
-  <link rel="stylesheet" href="app.css">
+  <link rel="manifest" href="./manifest.json">
+  <link rel="icon" href="./favicon.ico" />
+  <link rel="stylesheet" href="./fonts.css">
+  <link rel="stylesheet" href="./app.css">
 </head>
 <body>
 
@@ -185,7 +186,7 @@
     <dl class="about-meta">
       <div class="about-meta-row">
         <dt>Version</dt>
-        <dd id="aboutVersion">1.0.0</dd>
+        <dd id="aboutVersion">1.0.1</dd>
       </div>
       <div class="about-meta-row">
         <dt>Cache</dt>
@@ -209,11 +210,11 @@
 <!-- Toast notification -->
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-<script src="app.js"></script>
+<script src="./app.js"></script>
 <script>
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
-      navigator.serviceWorker.register('sw.js')
+      navigator.serviceWorker.register('./sw.js')
         .catch(err => console.warn('SW registration failed:', err));
     });
   }
