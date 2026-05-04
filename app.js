@@ -999,6 +999,9 @@ document.getElementById('clearBtn').addEventListener('click', () => {
       <h3>Ready to play</h3>
       <p>Enter your available letters (and optional pattern constraints) then hit <strong>Find Words</strong>.</p>
     </div>`;
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  document.getElementById('lettersInput').focus();
 });
 
 // -- Initialise scoring mode (runs after all state is declared) --
